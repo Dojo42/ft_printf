@@ -6,7 +6,7 @@
 /*   By: thofaure <thofaure@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 09:32:39 by thofaure          #+#    #+#             */
-/*   Updated: 2024/11/26 12:05:10 by thofaure         ###   ########lyon.fr   */
+/*   Updated: 2024/11/26 13:47:36 by thofaure         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -674,4 +674,5 @@ int main(void)
 	ft_printf("OUTPUT FT = %d\n", output_FT);
 
 	return (0);
+	*/
 }

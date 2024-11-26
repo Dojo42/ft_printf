@@ -6,7 +6,7 @@
 /*   By: thofaure <thofaure@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 09:30:43 by thofaure          #+#    #+#             */
-/*   Updated: 2024/11/26 11:58:21 by thofaure         ###   ########lyon.fr   */
+/*   Updated: 2024/11/26 13:45:25 by thofaure         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,23 +79,38 @@ static int	ft_print_c(const char *p, size_t count, va_list args)
 	return (count);
 }
 
+static int	ft_check(const char *format)
+{
+	char	*check;
+	int		i;
+
+	i = 0;
+	check = "cspdiuxX%";
+	while (i < 9)
+	{
+		if (check[i] == *(format + 1))
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 int	ft_printf(const char *format, ...)
 {
 	va_list		args;
 	size_t		count;
 
-	if (format == 0)
+	if (!format || (*format == '%' && *(format + 1) == '\0'))
 		return (-1);
 	va_start(args, format);
 	count = 0;
 	while (*format)
 	{
-		if (*format == '%' && format + 1)
+		if (*format == '%' && ft_check(format) == 1)
 		{
 			format++;
 			count = ft_print_c(format, count, args);
-			if (format + 1)
-				format++;
+			format++;
 		}
 		else
 		{
