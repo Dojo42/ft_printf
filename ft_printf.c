@@ -6,7 +6,7 @@
 /*   By: thofaure <thofaure@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 09:30:43 by thofaure          #+#    #+#             */
-/*   Updated: 2024/11/26 11:07:32 by thofaure         ###   ########lyon.fr   */
+/*   Updated: 2024/11/26 11:58:21 by thofaure         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,26 +82,26 @@ static int	ft_print_c(const char *p, size_t count, va_list args)
 int	ft_printf(const char *format, ...)
 {
 	va_list		args;
-	const char	*p;
 	size_t		count;
 
+	if (format == 0)
+		return (-1);
 	va_start(args, format);
-	p = format;
 	count = 0;
-	while (*p)
+	while (*format)
 	{
-		if (*p == '%' && p + 1)
+		if (*format == '%' && format + 1)
 		{
-			p++;
-			count = ft_print_c(p, count, args);
-			if (p + 1)
-				p++;
+			format++;
+			count = ft_print_c(format, count, args);
+			if (format + 1)
+				format++;
 		}
 		else
 		{
-			ft_putchar_fd(*p, 1);
+			ft_putchar_fd(*format, 1);
 			count++;
-			p++;
+			format++;
 		}
 	}
 	va_end(args);
