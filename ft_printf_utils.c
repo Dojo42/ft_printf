@@ -6,7 +6,7 @@
 /*   By: thofaure <thofaure@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 07:44:48 by thofaure          #+#    #+#             */
-/*   Updated: 2024/11/26 09:51:31 by thofaure         ###   ########lyon.fr   */
+/*   Updated: 2024/11/26 10:48:11 by thofaure         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ char	*ft_strdup(const char *s)
 	size_t		i;
 	char		*dup;
 
+	if (s == NULL)
+		return (NULL);
 	size = ft_strlen((char *) s) + 1;
 	i = 0;
 	dup = malloc(size * sizeof(char));

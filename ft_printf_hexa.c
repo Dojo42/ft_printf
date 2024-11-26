@@ -6,73 +6,44 @@
 /*   By: thofaure <thofaure@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 08:29:45 by thofaure          #+#    #+#             */
-/*   Updated: 2024/11/26 10:33:15 by thofaure         ###   ########lyon.fr   */
+/*   Updated: 2024/11/26 11:07:02 by thofaure         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static int	ft_lennb_hexa_p(unsigned long int n)
+static int	ft_putnbr_hexa_p(unsigned long int n)
 {
-	int	size;
+	size_t		size;
+	size_t		i;
+	char		buffer[42];
+	char		*hex;
 
-	size = 0;
-	if (n == 0)
-		return (1);
-	if (n < 0)
-		size++;
-	while (n != 0)
-	{
-		n /= 16;
-		size++;
-	}
-	return (size);
-}
-
-char	*ft_itoa_hexa_p(unsigned long int n)
-{
-	char			*str;
-	char			*hex;
-	int				size;
-
+	hex = "0123456789abcdef";
+	i = 0;
 	if (n == 0)
 	{
 		write(1, "(nil)", 5);
-		return (NULL);
+		return (5);
 	}
-	hex = "0123456789abcdef";
-	size = (ft_lennb_hexa_p(n));
-	str = malloc((size + 1) * sizeof(char));
-	if (!str)
-		return (NULL);
-	ft_memset(str, 0, size + 1);
-	str[size--] = '\0';
-	while (n >= 16)
+	size = 2;
+	write (1, "0x", 2);
+	while (n)
 	{
-		str[size] = hex[(n % 16)];
+		buffer[i] = hex[n % 16];
 		n /= 16;
-		size--;
+		i++;
+		size++;
 	}
-	str[size] = hex[n];
-	return (str);
+	while (i--)
+		ft_putchar_fd(buffer[i], 1);
+	return (size);
 }
 
 static int	ft_print_p(const char *p, size_t count, va_list args)
 {
-	char		*string;
-
-	string = NULL;
 	if (*p == 'p')
-	{
-		count += 2;
-		write (1, "0x", 2);
-		string = ft_itoa_hexa_p(va_arg(args, unsigned long int));
-		if (string == NULL)
-			return (0);
-		count += ft_strlen(string);
-		ft_putstr_fd(string, 1);
-		free (string);
-	}
+		count += ft_putnbr_hexa_p(va_arg(args, unsigned long int));
 	return (count);
 }
 

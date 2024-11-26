@@ -6,7 +6,7 @@
 /*   By: thofaure <thofaure@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 09:30:43 by thofaure          #+#    #+#             */
-/*   Updated: 2024/11/26 10:17:29 by thofaure         ###   ########lyon.fr   */
+/*   Updated: 2024/11/26 11:07:32 by thofaure         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,26 @@ static int	ft_print_diu(const char *p, size_t count, va_list args)
 	return (count);
 }
 
-static int	ft_print_cs(const char *p, size_t count, va_list args)
+static int	ft_print_s(size_t count, va_list args)
 {
 	char	*string;
 
 	string = NULL;
+	string = ft_strdup(va_arg(args, char *));
+	if (string == NULL)
+	{
+		write(1, "(null)", 6);
+		count += 6;
+		return (count);
+	}
+	count += ft_strlen(string);
+	ft_putstr_fd(string, 1);
+	free (string);
+	return (count);
+}
+
+static int	ft_print_c(const char *p, size_t count, va_list args)
+{
 	if (*p == '%')
 	{
 		count++;
@@ -57,12 +72,7 @@ static int	ft_print_cs(const char *p, size_t count, va_list args)
 	}
 	else if (*p == 's')
 	{
-		string = ft_strdup(va_arg(args, char *));
-		if (string == NULL)
-			return (0);
-		count += ft_strlen(string);
-		ft_putstr_fd(string, 1);
-		free (string);
+		count = ft_print_s(count, args);
 	}
 	else
 		count = ft_print_diu(p, count, args);
@@ -83,7 +93,7 @@ int	ft_printf(const char *format, ...)
 		if (*p == '%' && p + 1)
 		{
 			p++;
-			count = ft_print_cs(p, count, args);
+			count = ft_print_c(p, count, args);
 			if (p + 1)
 				p++;
 		}

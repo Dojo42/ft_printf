@@ -6,7 +6,7 @@
 /*   By: thofaure <thofaure@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 08:35:14 by thofaure          #+#    #+#             */
-/*   Updated: 2024/11/26 10:34:08 by thofaure         ###   ########lyon.fr   */
+/*   Updated: 2024/11/26 11:48:22 by thofaure         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ char	*ft_itoa_hexa_up(unsigned int n)
 		size--;
 	}
 	if (num > 9)
-		str[size] = (num % 16) + 87;
+		str[size] = (num % 16) + 55;
 	else
 		str[size] = (num % 16) + '0';
 	return (str);
